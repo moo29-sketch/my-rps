@@ -1,12 +1,17 @@
-"""RPS-001: the rules students will build with AI. See SPEC.md."""
+"""Rules for one independent round of Rock, Paper, Scissors."""
 
 
-# The required interface stays unused until students implement the rules.
-# pylint: disable-next=unused-argument
 def determine_winner(player: str, computer: str) -> str:
     """Return 'win', 'lose', or 'tie' from the player's perspective.
 
-    The supplied web page accepts only 'rock', 'paper', and 'scissors'.
-    Agree on the expected results in SPEC.md before implementing this function.
+    The Flask server validates submitted moves before calling this function.
     """
-    raise NotImplementedError("RPS-001: game rules are not built yet")
+    if player == computer:
+        return "tie"
+
+    winning_matchups = {
+        ("rock", "scissors"),
+        ("paper", "rock"),
+        ("scissors", "paper"),
+    }
+    return "win" if (player, computer) in winning_matchups else "lose"
